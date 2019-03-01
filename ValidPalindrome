@@ -1,0 +1,57 @@
+Problem- Valid Palindrome
+Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+
+Note: For the purpose of this problem, we define empty string as valid palindrome.
+
+Example 1:
+
+Input: "A man, a plan, a canal: Panama"
+Output: true
+Example 2:
+
+Input: "race a car"
+Output: false
+
+Solution-
+import Foundation
+
+class Solution {
+    func isPalindrome(_ s: String) -> Bool {
+        let str = preprocessString(s)
+        var startIndex = 0
+        var endIndex = str.count - 1
+
+        while(startIndex < endIndex) {
+            if str[startIndex] != str[endIndex] {
+                return false
+            }
+            startIndex = startIndex + 1
+            endIndex = endIndex - 1
+        }
+        
+        return true
+    }
+    
+    func preprocessString(_ s: String) -> String {
+    let str = s.lowercased()
+    return String(str.components(separatedBy:   CharacterSet.alphanumerics.inverted).joined())
+}
+}
+
+extension String {
+    subscript(i: Int) -> Character {
+        return self[index(startIndex, offsetBy: i)]
+    }
+}
+
+extension Character {
+    func isAlphanumeric() -> Bool {
+        for unicodeScalarValue in self.unicodeScalars {
+            if !CharacterSet.alphanumerics.contains(unicodeScalarValue) {
+                return false
+            }
+        }
+        return true
+    }
+}
+
